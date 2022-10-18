@@ -7,7 +7,8 @@
     <meta name="keywords" content="Gym, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gym | Template</title>
+    <title>BeastFitness</title>
+    <link rel="icon" type="image/x-icon" href="./img//favicon.ico">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
@@ -60,21 +61,6 @@
     <!-- Hero Section Begin -->
     <section class="hero-section">
         <div class="hs-slider owl-carousel">
-            <div class="hs-item set-bg" data-setbg="img/hero/hero-1.jpg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 offset-lg-6">
-                            <div class="hi-text">
-                                <span>Shape your body</span>
-                                <h1>Be <strong>strong</strong> traning hard</h1>
-                                <a target="_blank"
-                                    href="https://play.google.com/store/apps/details?id=com.akashlilhare.homeworkout"
-                                    class="primary-btn"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="hs-item set-bg" data-setbg="img/hero/hero-1.jpg">
                 <div class="container">
                     <div class="row">
@@ -351,11 +337,11 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="leave-comment">
-                        <form action="#">
+                        <form id="email-form" action="#">
                             <input type="text" id="name" placeholder="Name">
-                            <input type="text" id="email" placeholder="Email">
-                            <textarea style="height: 250px;" id="comment" placeholder="Comment"></textarea>
-                            <button type="submit" onclick="return handleSubmit()">Submit</button>
+                            <input type="email" id="email" placeholder="Email">
+                            <textarea style="height: 250px;" id="comment" placeholder="Comment" type="text"></textarea>
+                            <button id="submit-btn" type="submit" onclick="return handleSubmit()">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -386,7 +372,8 @@
                     <div class="d-flex row justify-content-center">
                         <a target="_blank"
                             href="https://play.google.com/store/apps/details?id=com.akashlilhare.homeworkout"
-                            class="primary-btn1"></a>
+                            class="primary-btn1">
+                        </a>
                     </div>
                     <div class="d-flex row fa-social">
                         <div href="#"><i class="fa fa-facebook"></i></div>
@@ -416,13 +403,34 @@
 
     <script>
 
+        $("#email=form").submit(function (e) {
+            e.preventDefault();
+        });
+
         function handleSubmit() {
 
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const comment = document.getElementById('comment').value;
 
+            if (name.trim().length === 0) {
+                alert("Please put Valid Name")
+                return;
+            }
+
+            if (email.trim().length === 0) {
+                alert("Please put Valid Email Information")
+                return;
+            }
+
+            if (comment.trim().length === 0) {
+                alert("Please Fill Comment-box")
+                return;
+            }
+
             console.log(name, email, comment)
+
+            document.getElementById("submit-btn").disabled = true;
 
             var data = {
                 service_id: 'service_5frz36m',
@@ -435,21 +443,26 @@
                 }
             };
 
+
             $.ajax('https://api.emailjs.com/api/v1.0/email/send', {
                 type: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json'
             }).done(function () {
                 alert('Your mail is sent!');
+                document.getElementById("submit-btn").disabled = false;
             }).fail(function (error) {
                 alert('Oops... ' + JSON.stringify(error));
             });
 
-            return false;
         }
 
     </script>
     <!-- Js Plugins -->
+    <script>
+        window.path
+
+    </script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.magnific-popup.min.js"></script>
